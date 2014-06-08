@@ -1,0 +1,13 @@
+<div ng-controller="EnterInspectorController">
+	<form>
+		<fieldset>
+			<legend>Set Inspector Name</legend>
+
+			<input placeholder="Enter inspector name" ng-model="inspector">
+			<div class="text-right">
+				<button class="alert radius" ng-click="deactivateAction()">Cancel</button>
+				<button class="success radius" ng-click="saveInspector()">Save</button>
+			</div>
+		</fieldset>
+	</form>
+</div>

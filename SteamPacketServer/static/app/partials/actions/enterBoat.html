@@ -1,0 +1,13 @@
+<div ng-controller="EnterBoatController">
+	<form>
+		<fieldset>
+			<legend>Set Boat Name</legend>
+
+			<input placeholder="Enter boat name" ng-model="boat">
+			<div class="text-right">
+				<button class="alert radius" ng-click="deactivateAction()">Cancel</button>
+				<button class="success radius" ng-click="saveBoat()">Save</button>
+			</div>
+		</fieldset>
+	</form>
+</div>

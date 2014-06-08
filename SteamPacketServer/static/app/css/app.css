@@ -1,0 +1,60 @@
+/* app css stylesheet */
+
+/* Icons from https://www.iconfinder.com/iconsets/softwaredemo */
+
+div.shield {
+  margin-left: -84px;
+  width: 128px;
+  height: 128px;
+  background-image: url(../img/1402100198_Shield_Grey.png);
+}
+
+div.shield.event-done {
+  background-image: url(../img/1402100191_Checked_Shield_Green.png);
+}
+
+div.shield.event-done.last:hover {
+  cursor: pointer;
+  /* Red is annoying on click */
+  background-image: url(../img/1402101653_Shield_Red.png);
+  /*background-image: url(../img/1402100208_Shield_Green.png);*/
+}
+
+div.shield.event-pending.next:hover {
+  cursor: pointer;
+  background-image: url(../img/1402100208_Shield_Green.png);
+}
+
+div.shield-small {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  margin-right: 2px;
+  vertical-align: middle;
+}
+
+div.shield-small.event-done {
+  background-image: url(../img/1402108150_Checked_Shield_Green_32.png);
+}
+
+div.shield-small.event-pending {
+  background-image: url(../img/1402108161_Shield_Grey_32.png);
+}
+
+.job-link:hover {
+  background-color: #eee;
+}
+
+.job-details p {
+  font-weight: bold;  
+}
+
+.job-header {
+  border-bottom-left-radius: 150px; 
+  border-bottom: 10px solid #ccc; 
+  border-left: 10px solid #ccc; 
+  border-right: 10px solid #ccc; 
+  margin-left: -25px !important;
+  margin-bottom: 20px !important; 
+  padding-top: 20px;
+}
