@@ -1,0 +1,21 @@
+<table class="job-table">
+	<thead>
+		<tr>
+			<th style="width: 100px;" ng-click="setOrderBy('jobNumber')">Job <span ng-if="orderField == 'jobNumber'" ng-bind="orderDir ? '↑':'↓'"></span></th>
+			<th ng-click="setOrderBy('customer')">Customer  <span ng-if="orderField == 'customer'" ng-bind="orderDir ? '↑':'↓'"></span></th>
+			<th ng-click="setOrderBy('boat')">Boat  <span ng-if="orderField == 'boat'" ng-bind="orderDir ? '↑':'↓'"></span></th>
+			<th ng-click="setOrderBy('stepsDone')" ng-style="{width:32*11}">Status  <span ng-if="orderField == 'stepsDone'" ng-bind="orderDir ? '↑':'↓'"></span></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="j in jobs | orderBy:orderField:orderDir" ng-click="go(j)" class="job-table-row">
+			<td>{{j.jobNumber}}</td>
+			<td>{{j.customer || "~"}}</td>
+			<td>{{j.boat || "~"}}</td>
+			<td>
+				<div class="shield-small event-done" ng-repeat="id in j.stepsDone"></div>
+				<div class="shield-small event-pending" ng-repeat="id in j.totalSteps"></div>
+			</td>
+		</tr>
+	</tbody>
+</table>

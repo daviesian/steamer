@@ -54,13 +54,17 @@ angular.module('myApp.controllers', ['myApp.services'])
 
   }])
 
-  .controller('JobsController', ['$scope', 'job', "process", "$rootScope", "$location", function($scope, job, process, $rootScope, $location) {
+  .controller('JobsController', ['$scope', 'job', "process", "$rootScope", "$location", "$filter", function($scope, job, process, $rootScope, $location, $filter) {
 
   	$rootScope.pageTitle = "Jobs";
-  	$scope.jobs = job.query();
+
+  	$scope.jobsLoader = job.query();// = $filter('filter')(job.query(), {open:true}, true);
+  	$scope.orderField = "jobNumber";
+  	$scope.orderDir = true;
 
 
-  	$scope.jobs.$promise.then(function() {
+  	$scope.jobsLoader.$promise.then(function() {
+	  	$scope.jobs = $scope.jobsLoader.slice();
 	  	for(var i in $scope.jobs) {
 	  		var j = $scope.jobs[i];
 	  		var stepsDone = [];
@@ -73,6 +77,11 @@ angular.module('myApp.controllers', ['myApp.services'])
 	  		j.totalSteps = process.steps.slice(stepsDone.length);
 
 	  	}
+
+	  	$scope.openJobs = $filter('filter')($scope.jobs, function(j) {
+	  		return !j.closed;
+	  	});
+	  	$scope.closedJobs = $filter('filter')($scope.jobs, {closed:true});
 
   	})
 
@@ -96,6 +105,7 @@ angular.module('myApp.controllers', ['myApp.services'])
   		j.$save();
   		$location.url("/jobs/" + j.jobNumber);
   	};
+
 
   }])
 
@@ -200,5 +210,6 @@ angular.module('myApp.controllers', ['myApp.services'])
   		$scope.showNoteForm = false;
 
   	}
+
 
   }])

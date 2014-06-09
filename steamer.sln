@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "SteamPacketServer", "SteamPacketServer\SteamPacketServer.pyproj", "{15740DB7-022E-428D-9BE6-1E4DE1AB39D9}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "steamer", "steamer\steamer.pyproj", "{15740DB7-022E-428D-9BE6-1E4DE1AB39D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -5,13 +5,13 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>15740db7-022e-428d-9be6-1e4de1ab39d9</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>SteamPacketServer.py</StartupFile>
+    <StartupFile>steamer.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>SteamPacketServer</Name>
-    <RootNamespace>SteamPacketServer</RootNamespace>
+    <Name>steamer</Name>
+    <RootNamespace>steamer</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,7 +22,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="SteamPacketServer.py" />
+    <Compile Include="steamer.py" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>

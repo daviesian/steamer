@@ -58,3 +58,20 @@ div.shield-small.event-pending {
   margin-bottom: 20px !important; 
   padding-top: 20px;
 }
+
+.job-table-row {
+  cursor:pointer;
+}
+
+.job-table-row:hover {
+  background: #eee;
+}
+
+.job-table {
+  width: 100%;
+  cursor: pointer;
+}
+
+.job-table th:hover {
+  color: #00d;
+}

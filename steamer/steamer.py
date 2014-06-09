@@ -6,7 +6,7 @@ from pymongo import MongoClient
 app = Flask(__name__)
 
 client = MongoClient()
-db = client['steam_packet']
+db = client['steamer']
 
 @app.route('/')
 def hello_world():
