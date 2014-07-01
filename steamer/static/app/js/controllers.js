@@ -8,22 +8,6 @@ angular.module('myApp.controllers', ['myApp.services'])
 
   }])
 
-  .controller('AddNoteController', ["$scope", function($scope) {
-
-    $scope.saveNote = function() {
-      var e = {
-        type: "note",
-        date: new Date(),
-        text: $scope.note
-      };
-
-      $scope.job.events.push(e);
-
-      $scope.job.$save();
-      $scope.deactivateAction();
-    }
-  }])
-
   .controller('EnterCustomerController', ["$scope", function($scope) {
 
   	$scope.saveCustomer = function() {
@@ -187,27 +171,49 @@ angular.module('myApp.controllers', ['myApp.services'])
 
   	}
 
-  	$scope.cancelNote = function() {
-  		$scope.newNoteText = "";
-  		$scope.showNoteForm = false;
-  	}
+    $scope.addingNote = {index: -1, note: null};
 
-  	$scope.saveNote = function() {
+    $scope.addNote = function(index) {
+      var e = {
+        type: "note",
+        date: new Date(),
+        text: $scope.addingNote.note
+      };
 
-  		var e = {
-  			type: "note",
-  			date: new Date(),
-  			text: $scope.newNoteText
-  		};
+      $scope.job.events.splice($scope.addingNote.index+1,0,e);
 
-  		job.events.push(e);
+      $scope.job.$save();
+      $scope.addingNote.index = -1;
+      $scope.addingNote.note = null;
+    }
 
-  		job.$save();
 
-  		$scope.newNoteText = "";
-  		$scope.showNoteForm = false;
+    $scope.deleteNote = function(index) {
+      if (!window.confirm("This will delete the note from this job. Are you sure?"))
+        return;
+      $scope.job.events.splice(index,1);
+      job.$save();
+    }
 
-  	}
+    $scope.deleteCustomer = function() {
+      if (!window.confirm("This will delete the customer details from this job. Are you sure?"))
+        return;
+      $scope.job.customer = "";
+      job.$save();
+    }
 
+    $scope.deleteBoat = function() {
+      if (!window.confirm("This will delete the boat details from this job. Are you sure?"))
+        return;
+      $scope.job.boat = "";
+      job.$save();
+    }
+
+    $scope.deleteInspector = function() {
+      if (!window.confirm("This will delete the inspector details from this job. Are you sure?"))
+        return;
+      $scope.job.inspector = "";
+      job.$save();
+    }
 
   }])

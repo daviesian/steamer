@@ -21,9 +21,9 @@
 						<p>Inspector:</p>
 					</div>
 					<div class="small-3 columns job-details">
-						<p>{{job.customer}}</p>
-						<p>{{job.boat}}</p>
-						<p>{{job.inspector}}</p>
+						<p>{{job.customer || "~"}} <a ng-if="job.customer" class="delete" href="javascript:void(0);" ng-click="deleteCustomer()"></a></p>
+						<p>{{job.boat || "~"}} <a ng-if="job.boat" class="delete" href="javascript:void(0);" ng-click="deleteBoat()"></a></p>
+						<p>{{job.inspector || "~"}} <a ng-if="job.inspector" class="delete" href="javascript:void(0);" ng-click="deleteInspector()"></a></p>
 					</div>
 				</div>
 			</div>
@@ -32,21 +32,38 @@
 			<div class="small-1 column"><div ng-if="e.id" ng-class="{shield: true, 'event-done': true, 'last': !$first && $last}" ng-click="removeEvent($last ? $index : null)"></div></div>
 			<div class="small-11 columns">
 				<h3 ng-if="e.title">{{e.title}}</h3>
-				<h4>{{e.date | date}}</h4>
+				<h4>{{e.date | date}}  <a ng-if="!e.id" class="delete" href="javascript:void(0);" ng-click="deleteNote($index)"></a></h4>
 				<p ng-if="e.text">{{e.text}}</p>
+
+				<div ng-if="addingNote != $index && ($last || job.events[$index+1].id)" class="text-center">
+				<ul class="button-group round tiny" style="display: inline-block;">
+					<li>
+						<button class="button tiny" ng-click="addingNote.index = $index">{{ $last ? "Add" : "Insert" }} Note</button>
+					</li>
+				</ul>
+				</div>
+
+				<div class="row" ng-if="addingNote.index == $index">
+					<div class="small-11 small-offset-1 columns end" ng-include="'partials/actions/addNote.html'"></div>
+				</div>
+
 			</div>
 		</div>
 
-		<div ng-if="!activeActionTemplateUrl" class="text-center">
-		<ul class="button-group round" style="display: inline-block;">
-			<li ng-repeat="a in actions">
-				<button class="button success" ng-click="activateAction(a)">{{a.caption}}</button>
-			</li>
-		</ul>
-		</div>
+		<div class="row">
+			<div class="small-11 small-offset-1 columns">
+				<div ng-if="!activeActionTemplateUrl" class="text-center">
+				<ul class="button-group round" style="display: inline-block;">
+					<li ng-repeat="a in actions">
+						<button class="button success" ng-click="activateAction(a)">{{a.caption}}</button>
+					</li>
+				</ul>
+				</div>
 
-		<div class="row" ng-if="activeActionTemplateUrl">
-			<div class="small-11 small-offset-1 columns end" ng-include="activeActionTemplateUrl"></div>
+				<div class="row" ng-if="activeActionTemplateUrl">
+					<div class="small-11 small-offset-1 columns end" ng-include="activeActionTemplateUrl"></div>
+				</div>
+			</div>
 		</div>
 
 		<div ng-if="job.closed">

@@ -1,13 +1,13 @@
-<div ng-controller="AddNoteController">
+<div>
 	<form>
 		<fieldset>
 			<legend>Add Note</legend>
 
-			<textarea id="note-input" type="text" placeholder="Enter note here" ng-model="note"></textarea>
+			<textarea id="note-input" type="text" placeholder="Enter note here" ng-model="addingNote.note"></textarea>
 
 			<div class="text-right">
-				<button class="button radius alert" ng-click="deactivateAction()">Cancel</button>
-				<button class="button radius success" ng-click="saveNote()">Save</button>
+				<button class="button radius alert" ng-click="addingNote.index = -1">Cancel</button>
+				<button class="button radius success" ng-click="addNote()">Save</button>
 			</div>
 		</fieldset>
 	</form>
