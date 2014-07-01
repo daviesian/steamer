@@ -75,3 +75,17 @@ div.shield-small.event-pending {
 .job-table th:hover {
   color: #00d;
 }
+
+a.delete {
+  background-image: url(../img/delete.png);
+  width:16px;
+  height:16px;
+  cursor: pointer;
+  display: inline-block;
+  float:right;
+  opacity: 0.5;
+}
+
+a.delete:hover {
+  opacity: 1;
+}
