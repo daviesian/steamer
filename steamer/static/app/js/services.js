@@ -37,6 +37,12 @@ angular.module('myApp.services', [])
 				id: "inspectorPaid",
 				title: "Inspector paid"
 			}, {
+				id: "chargesUpdated",
+				title: "Charges Updated"
+			}, {
+				id: "archiveUpdated",
+				title: "Archive Updated"
+			}, {
 				id: "inspectionReportSigned",
 				title: "Inspection report signed"
 			}, {

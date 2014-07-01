@@ -52,7 +52,7 @@
 		<div ng-if="job.closed">
 			<h1>Job Closed</h1>
 		</div>
-		<div ng-if="!job.closed">
+		<div ng-if="!job.closed && pendingSteps.length > 0">
 		<hr>
 		<h1>Next steps</h1>
 

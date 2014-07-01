@@ -10,18 +10,18 @@ angular.module('myApp.controllers', ['myApp.services'])
 
   .controller('AddNoteController', ["$scope", function($scope) {
 
-  	$scope.saveNote = function() {
-  		var e = {
-  			type: "note",
-  			date: new Date(),
-  			text: $scope.note
-  		};
+    $scope.saveNote = function() {
+      var e = {
+        type: "note",
+        date: new Date(),
+        text: $scope.note
+      };
 
-  		$scope.job.events.push(e);
+      $scope.job.events.push(e);
 
-  		$scope.job.$save();
-  		$scope.deactivateAction();
-  	}
+      $scope.job.$save();
+      $scope.deactivateAction();
+    }
   }])
 
   .controller('EnterCustomerController', ["$scope", function($scope) {
@@ -124,18 +124,16 @@ angular.module('myApp.controllers', ['myApp.services'])
 	  		}
 	  	}
 
-	  	// For each required step, mark it as happened or not.
-	  	for(var i in steps) {
-	  		steps[i].done = happenedSteps.indexOf(steps[i].id) > -1;
-	  	}
+      var lastStep = happenedSteps[happenedSteps.length - 1];
+      var lastStepIndex = steps.findIndex(function(s) { return lastStep == s.id; });
 
-	  	var firstNotDone = steps.findIndex(function(s) { return !s.done; });
+      var firstNotDone = lastStepIndex + 1;
 
-	  	if (firstNotDone > -1) {
-	  		$scope.pendingSteps = steps.slice(firstNotDone);
-	  	} else {
-	  		$scope.pendingSteps = [];
-	  	}
+      if (firstNotDone == steps.length) {
+        $scope.pendingSteps = [];
+      } else {
+        $scope.pendingSteps = steps.slice(firstNotDone);
+      }
 
 	  	$scope.actions = [];
 	  	for(var i in actions) {

@@ -4,7 +4,7 @@
 			<th style="width: 100px;" ng-click="setOrderBy('jobNumber')">Job <span ng-if="orderField == 'jobNumber'" ng-bind="orderDir ? '↑':'↓'"></span></th>
 			<th ng-click="setOrderBy('customer')">Customer  <span ng-if="orderField == 'customer'" ng-bind="orderDir ? '↑':'↓'"></span></th>
 			<th ng-click="setOrderBy('boat')">Boat  <span ng-if="orderField == 'boat'" ng-bind="orderDir ? '↑':'↓'"></span></th>
-			<th ng-click="setOrderBy('stepsDone')" ng-style="{width:32*11}">Status  <span ng-if="orderField == 'stepsDone'" ng-bind="orderDir ? '↑':'↓'"></span></th>
+			<th ng-click="setOrderBy('stepsDone')" ng-style="{width:32*13}">Status  <span ng-if="orderField == 'stepsDone'" ng-bind="orderDir ? '↑':'↓'"></span></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -13,8 +13,7 @@
 			<td>{{j.customer || "~"}}</td>
 			<td>{{j.boat || "~"}}</td>
 			<td>
-				<div class="shield-small event-done" ng-repeat="id in j.stepsDone"></div>
-				<div class="shield-small event-pending" ng-repeat="id in j.totalSteps"></div>
+				<div ng-class="{'shield-small': true, 'event-pending': !j.processSteps[s.id], 'event-done': j.processSteps[s.id]}" ng-repeat="s in processSteps"></div>
 			</td>
 		</tr>
 	</tbody>
