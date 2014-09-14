@@ -28,23 +28,41 @@ angular.module('myApp.services', [])
 				id: "inspectorAllocated",
 				title: "Inspector Allocated"
 			}, {
+				id: "jobCreatedInCharges",
+				title: "Job created in charges"
+			}, {
+				id: "jobCreatedInArchive",
+				title: "Job created in archive"
+			}, {
+				id: "jobSheetCreated",
+				title: "Job sheet created"
+			}, {
+				id: "inspectionFormCreated",
+				title: "Inspection form created"
+			}, {
 				id: "formsSent",
 				title: "Job sheet and inspection form sent to inspector"
 			}, {
 				id: "formsReceived",
 				title: "Job sheet and inspection form received from inspector"
 			}, {
-				id: "inspectorPaid",
-				title: "Inspector paid"
-			}, {
 				id: "chargesUpdated",
-				title: "Charges Updated"
-			}, {
-				id: "archiveUpdated",
-				title: "Archive Updated"
+				title: "Charges updated"
 			}, {
 				id: "inspectionReportSigned",
 				title: "Inspection report signed"
+			}, {
+				id: "inspectionReportScanned",
+				title: "Inspection report scanned"
+			}, {
+				id: "jobSheetScanned",
+				title: "Job sheet scanned"
+			}, {
+				id: "inspectorPaid",
+				title: "Inspector paid"
+			}, {
+				id: "archiveUpdated",
+				title: "Archive updated"
 			}, {
 				id: "invoiceRaised",
 				title: "Invoice raised"
@@ -54,6 +72,9 @@ angular.module('myApp.services', [])
 			}, {
 				id: "paymentReceived",
 				title: "Payment received"
+			}, {
+				id: "paymentRecordedInCharges",
+				title: "Payment recorded in charges"
 			}]
 		}
 	})
