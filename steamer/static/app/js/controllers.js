@@ -178,8 +178,8 @@ angular.module('myApp.controllers', ['myApp.services'])
     $scope.startAddingNote = function(idx) {
         $scope.addingNote.index = idx;
         setTimeout(function() {
-            $("input").last().focus();
-        },0);
+            $("textarea").last().focus();
+        },1);
     };
 
     $scope.addingNote = {index: -1, note: null};
