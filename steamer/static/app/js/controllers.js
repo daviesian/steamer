@@ -8,7 +8,7 @@ angular.module('myApp.controllers', ['myApp.services'])
 
   }])
 
-  .controller('EnterCustomerController', ["$scope", function($scope) {
+  .controller('EnterCustomerController', ["$scope", "$element", function($scope, $element) {
 
   	$scope.saveCustomer = function() {
   		$scope.job.customer = $scope.customer;
@@ -16,9 +16,11 @@ angular.module('myApp.controllers', ['myApp.services'])
   		$scope.deactivateAction();
   	}
 
+	$element.find("input").focus();
+
   }])
 
-  .controller('EnterBoatController', ["$scope", function($scope) {
+  .controller('EnterBoatController', ["$scope", "$element", function($scope, $element) {
 
   	$scope.saveBoat = function() {
   		$scope.job.boat = $scope.boat;
@@ -26,9 +28,10 @@ angular.module('myApp.controllers', ['myApp.services'])
   		$scope.deactivateAction();
   	}
 
+	$element.find("input").focus();
   }])
 
-  .controller('EnterInspectorController', ["$scope", function($scope) {
+  .controller('EnterInspectorController', ["$scope", "$element", function($scope, $element) {
 
   	$scope.saveInspector = function() {
   		$scope.job.inspector = $scope.inspector;
@@ -36,6 +39,7 @@ angular.module('myApp.controllers', ['myApp.services'])
   		$scope.deactivateAction();
   	}
 
+	$element.find("input").focus();
   }])
 
   .controller('JobsController', ['$scope', 'job', "process", "$rootScope", "$location", "$filter", function($scope, job, process, $rootScope, $location, $filter) {
@@ -170,6 +174,13 @@ angular.module('myApp.controllers', ['myApp.services'])
   		}
 
   	}
+
+    $scope.startAddingNote = function(idx) {
+        $scope.addingNote.index = idx;
+        setTimeout(function() {
+            $("input").last().focus();
+        },0);
+    };
 
     $scope.addingNote = {index: -1, note: null};
 

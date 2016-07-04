@@ -38,7 +38,7 @@
 				<div ng-if="addingNote != $index && ($last || job.events[$index+1].id)" class="text-center">
 				<ul class="button-group round tiny" style="display: inline-block;">
 					<li>
-						<button class="button tiny" ng-click="addingNote.index = $index">{{ $last ? "Add" : "Insert" }} Note</button>
+						<button class="button tiny" ng-click="startAddingNote($index)">{{ $last ? "Add" : "Insert" }} Note</button>
 					</li>
 				</ul>
 				</div>
