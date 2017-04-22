@@ -40,13 +40,27 @@ angular.module('myApp.directives', []).
           for (var i in scope.jobs) {
             var j = scope.jobs[i];
 
-            j.processSteps = {};
-            for(var i in process.steps) {
-              j.processSteps[process.steps[i].id] = j.stepsDone.indexOf(process.steps[i].id) > -1
+            //j.processSteps = {};
+            //for(var i in process.steps) {
+            //  j.processSteps[process.steps[i].id] = j.stepsDone.indexOf(process.steps[i].id) > -1
+            //}
+            var stepsCompleted = process.steps.length;
+            for (var i in process.steps) {
+              if (j.stepsDone.indexOf(process.steps[i].id) == -1){
+                stepsCompleted = i;
+                break;
+              }
             }
+
+            j.percent = (100*stepsCompleted / process.steps.length) + "%";
+
+            if (stepsCompleted > 0) {
+              j.relax = !!process.steps[stepsCompleted-1].relax;
+            }
+            j.complete = stepsCompleted == process.steps.length
           }
 
-        })
+        });
 
       },
   	}

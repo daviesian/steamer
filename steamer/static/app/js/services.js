@@ -15,7 +15,6 @@ angular.module('myApp.services', [])
 	.service('job', ["$resource", function($resource) {
 		return $resource("/api/jobs/:jobNumber", {
 			jobNumber: "@jobNumber",
-
 		})
 	}])
 
@@ -41,7 +40,8 @@ angular.module('myApp.services', [])
 				title: "Inspection form created"
 			}, {
 				id: "formsSent",
-				title: "Job sheet and inspection form sent to inspector"
+				title: "Job sheet and inspection form sent to inspector",
+				relax: true
 			}, {
 				id: "formsReceived",
 				title: "Job sheet and inspection form received from inspector"
@@ -68,13 +68,14 @@ angular.module('myApp.services', [])
 				title: "Invoice raised"
 			}, {
 				id: "invoiceSent",
-				title: "Invoice and report sent to customer"
+				title: "Invoice and report sent to customer",
+				relax: true
 			}, {
 				id: "paymentReceived",
 				title: "Payment received"
 			}, {
 				id: "paymentRecordedInCharges",
-				title: "Payment recorded in charges"
+				title: "Payment recorded in charges",
 			}]
 		}
 	})

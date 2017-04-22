@@ -42,13 +42,16 @@ angular.module('myApp.controllers', ['myApp.services'])
 	$element.find("input").focus();
   }])
 
-  .controller('JobsController', ['$scope', 'job', "process", "$rootScope", "$location", "$filter", function($scope, job, process, $rootScope, $location, $filter) {
+  .controller('JobsController', ['$scope', 'job', "process", "$rootScope", "$location", "$filter", "$routeParams", function($scope, job, process, $rootScope, $location, $filter, $routeParams) {
 
   	$rootScope.pageTitle = "Jobs";
+    $scope.closed = !!$routeParams.closed;
 
-  	$scope.jobsLoader = job.query();// = $filter('filter')(job.query(), {open:true}, true);
+  	$scope.jobsLoader = job.query({open:!$scope.closed});// = $filter('filter')(job.query(), {open:true}, true);
   	$scope.orderField = "jobNumber";
   	$scope.orderDir = true;
+
+    $scope.title = $scope.closed ? "Closed Jobs" : "Open Jobs";
 
 
   	$scope.jobsLoader.$promise.then(function() {
@@ -65,11 +68,11 @@ angular.module('myApp.controllers', ['myApp.services'])
 	  		j.totalSteps = process.steps.slice(stepsDone.length);
 
 	  	}
-
-	  	$scope.openJobs = $filter('filter')($scope.jobs, function(j) {
-	  		return !j.closed;
-	  	});
-	  	$scope.closedJobs = $filter('filter')($scope.jobs, {closed:true});
+      //$scopejobs = 
+	  	//$scope.openJobs = $filter('filter')($scope.jobs, function(j) {
+	  	//	return !j.closed;
+	  	//});
+	  	//$scope.closedJobs = $filter('filter')($scope.jobs, {closed:true});
 
   	})
 

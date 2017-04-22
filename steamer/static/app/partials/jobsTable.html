@@ -13,7 +13,8 @@
 			<td>{{j.customer || "~"}}</td>
 			<td>{{j.boat || "~"}}</td>
 			<td>
-				<div ng-class="{'shield-small': true, 'event-pending': !j.processSteps[s.id], 'event-done': j.processSteps[s.id]}" ng-repeat="s in processSteps"></div>
+				<div ng-style="{width: j.percent}" class="job-progress" ng-class="{relax: j.relax, complete: j.complete}"></div>
+				<!--<div ng-class="{'shield-small': true, 'event-pending': !j.processSteps[s.id], 'event-done': j.processSteps[s.id]}" ng-repeat="s in processSteps"></div>-->
 			</td>
 		</tr>
 	</tbody>

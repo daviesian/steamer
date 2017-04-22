@@ -17,11 +17,14 @@ db = client['steamer']
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return 'Hello World!!!!%s' % request.args.get("closed", False)
 
 @app.route('/api/jobs')
 def jobs():
-    return dumps(db['jobs'].find())
+    if request.args.get("open") == "true":
+        return dumps(db['jobs'].find({"closed": {"$exists": False}}))
+    else:
+        return dumps(db['jobs'].find({"closed": True}))
 
 # Can only update jobs here. Create by posting to jobs.
 @app.route('/api/jobs/<int:jobNumber>', methods=['GET', 'POST'])

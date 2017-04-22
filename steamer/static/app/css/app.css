@@ -89,3 +89,16 @@ a.delete {
 a.delete:hover {
   opacity: 1;
 }
+
+div.job-progress {
+  height: 25px;
+  background: orange;
+}
+
+div.job-progress.relax {
+  background: green;
+}
+
+div.job-progress.complete {
+  background: lightgreen;
+}

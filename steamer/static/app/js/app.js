@@ -70,7 +70,7 @@ angular.module('myApp', [
 ]).
 config(['$routeProvider', function($routeProvider) {
 
-	$routeProvider.when('/jobs', {templateUrl: 'partials/jobs.html', controller: 'JobsController'});
+  $routeProvider.when('/jobs', {templateUrl: 'partials/jobs.html', controller: 'JobsController'});
 
 	$routeProvider.when("/jobs/:jobNumber", {
 		templateUrl: "partials/job.html",
