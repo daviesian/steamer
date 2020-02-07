@@ -78,24 +78,30 @@ angular.module('myApp.controllers', ['myApp.services'])
 
   	$scope.addNewJob = function() {
 
-      job.query().$promise.then(function(allJobs) {
-        var currentLargestJobNumber = 0;
-        for(var i in allJobs) {
-          if (allJobs[i].jobNumber)
-            currentLargestJobNumber = Math.max(currentLargestJobNumber, parseInt(allJobs[i].jobNumber));
-        }
 
-        var j = new job({
-          jobNumber: currentLargestJobNumber+1,
-          events: [{
-          id: "jobCreated",
-          title: "Job request received",
-          date: new Date()
-        }
-          ]
-        });
-        j.$save();
-        $location.url("/jobs/" + j.jobNumber);
+
+      job.query({open: true}).$promise.then(function(openJobs) {
+
+        job.query({open: false}).$promise.then(function(closedJobs) {
+          var allJobs = openJobs.concat(closedJobs);
+          var currentLargestJobNumber = 0;
+          for(var i in allJobs) {
+            if (allJobs[i].jobNumber)
+              currentLargestJobNumber = Math.max(currentLargestJobNumber, parseInt(allJobs[i].jobNumber));
+          }
+
+          var j = new job({
+            jobNumber: currentLargestJobNumber+1,
+            events: [{
+            id: "jobCreated",
+            title: "Job request received",
+            date: new Date()
+          }
+            ]
+          });
+          j.$save();
+          $location.url("/jobs/" + j.jobNumber);
+        })
       });
 
   	};
