@@ -78,23 +78,26 @@ angular.module('myApp.controllers', ['myApp.services'])
 
   	$scope.addNewJob = function() {
 
-  		var currentLargestJobNumber = 0;
-  		for(var i in $scope.jobs) {
-  			if ($scope.jobs[i].jobNumber)
-  				currentLargestJobNumber = Math.max(currentLargestJobNumber, parseInt($scope.jobs[i].jobNumber));
-  		}
+      job.query().$promise.then(function(allJobs) {
+        var currentLargestJobNumber = 0;
+        for(var i in allJobs) {
+          if (allJobs[i].jobNumber)
+            currentLargestJobNumber = Math.max(currentLargestJobNumber, parseInt(allJobs[i].jobNumber));
+        }
 
-  		var j = new job({
-  			jobNumber: currentLargestJobNumber+1,
-  			events: [{
-				id: "jobCreated",
-				title: "Job request received",
-				date: new Date()
-			}
-  			]
-  		});
-  		j.$save();
-  		$location.url("/jobs/" + j.jobNumber);
+        var j = new job({
+          jobNumber: currentLargestJobNumber+1,
+          events: [{
+          id: "jobCreated",
+          title: "Job request received",
+          date: new Date()
+        }
+          ]
+        });
+        j.$save();
+        $location.url("/jobs/" + j.jobNumber);
+      });
+
   	};
 
 
