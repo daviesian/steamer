@@ -11,6 +11,7 @@
 		<tr ng-repeat="j in jobs | orderBy:orderField:orderDir" ng-click="go(j)" class="job-table-row">
 			<td>{{j.jobNumber}}</td>
 			<td>{{j.customer || "~"}}</td>
+			<td>{{j.inspector}}</td>
 			<td>{{j.boat || "~"}}</td>
 			<td>
 				<div ng-style="{width: j.percent}" class="job-progress" ng-class="{relax: j.relax, complete: j.complete}"></div>
