@@ -3,6 +3,7 @@
 		<tr>
 			<th style="width: 100px;" ng-click="setOrderBy('jobNumber')">Job <span ng-if="orderField == 'jobNumber'" ng-bind="orderDir ? '↑':'↓'"></span></th>
 			<th ng-click="setOrderBy('customer')">Customer  <span ng-if="orderField == 'customer'" ng-bind="orderDir ? '↑':'↓'"></span></th>
+			<th ng-click="setOrderBy('inspector')">Inspector  <span ng-if="orderField == 'inspector'" ng-bind="orderDir ? '↑':'↓'"></span></th>
 			<th ng-click="setOrderBy('boat')">Boat  <span ng-if="orderField == 'boat'" ng-bind="orderDir ? '↑':'↓'"></span></th>
 			<th ng-click="setOrderBy('stepsDone')" ng-style="{width:32*13}">Status  <span ng-if="orderField == 'stepsDone'" ng-bind="orderDir ? '↑':'↓'"></span></th>
 		</tr>
