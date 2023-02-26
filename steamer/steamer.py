@@ -22,7 +22,7 @@ def hello_world():
 @app.route('/api/jobs')
 def jobs():
     if request.args.get("open") == "true":
-        return dumps(db['jobs'].find({"closed": {"$exists": False}}))
+        return dumps(db['jobs'].find({"$or": [{"closed": {"$exists": False}}, {"closed": False}]}))
     else:
         return dumps(db['jobs'].find({"closed": True}))
 
