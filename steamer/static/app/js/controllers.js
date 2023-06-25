@@ -3,12 +3,8 @@
 /* Controllers */
 
 angular.module('myApp.controllers', ['myApp.services'])
-  .controller('MyCtrl1', ['$scope', function($scope) {
 
-
-  }])
-
-  .controller('EnterCustomerController', ["$scope", "$element", function($scope, $element) {
+.controller('EnterCustomerController', ["$scope", "$element", function($scope, $element) {
 
   	$scope.saveCustomer = function() {
   		$scope.job.customer = $scope.customer;
@@ -47,7 +43,7 @@ angular.module('myApp.controllers', ['myApp.services'])
   	$rootScope.pageTitle = "Jobs";
     $scope.closed = !!$routeParams.closed;
 
-  	$scope.jobsLoader = job.query({open:!$scope.closed});// = $filter('filter')(job.query(), {open:true}, true);
+  	$scope.jobsLoader = job.query({open:!$scope.closed});
   	$scope.orderField = "jobNumber";
   	$scope.orderDir = true;
 
@@ -68,17 +64,10 @@ angular.module('myApp.controllers', ['myApp.services'])
 	  		j.totalSteps = process.steps.slice(stepsDone.length);
 
 	  	}
-      //$scopejobs = 
-	  	//$scope.openJobs = $filter('filter')($scope.jobs, function(j) {
-	  	//	return !j.closed;
-	  	//});
-	  	//$scope.closedJobs = $filter('filter')($scope.jobs, {closed:true});
 
   	})
 
   	$scope.addNewJob = function() {
-
-
 
       job.query({open: true}).$promise.then(function(openJobs) {
 

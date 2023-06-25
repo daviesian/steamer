@@ -8,10 +8,6 @@
 angular.module('myApp.services', [])
 	.value('version', '0.1')
 
-	.service('jobs', ["$resource", function($resource) {
-		return $resource("/api/jobs/:jobNumber");
-	}])
-
 	.service('job', ["$resource", function($resource) {
 		return $resource("/api/jobs/:jobNumber", {
 			jobNumber: "@jobNumber",
