@@ -1,108 +1,77 @@
+#./nssm install Steamer 'C:\Program Files\Python311\python.exe' C:\steamer\steamer\steamer.py
+
 from flask import Flask, request, abort
-
-from bson.json_util import dumps, loads
-from pymongo import MongoClient
-import json
-
-import pythoncom
-import win32serviceutil
-import win32service
-import win32event
-import servicemanager
-import socket
 import sqlite3
 from contextlib import closing
+import os
+import json
 
 app = Flask(__name__)
 
-client = MongoClient()
-db_mongo = client['steamer']
+DB_PATH=os.getenv("STEAMER_DB") or r"C:\Users\Chris\Dropbox\SBAS\New Administration\steamer-db.db"
 
-db = sqlite3.connect("steamer-db.db")
-db.row_factory = sqlite3.Row
+def connect():
+    d = sqlite3.connect(DB_PATH)
+    d.row_factory = sqlite3.Row
+    d.isolation_level = None
+    return closing(d)
 
-cur = db.cursor()
-cur.execute("CREATE TABLE IF NOT EXISTS jobs (job TEXT)")
-db.commit()
+cursor = lambda db: closing(db.cursor())
 
-cursor = lambda: closing(db.cursor())
+with connect() as db:
+    db.execute("CREATE TABLE IF NOT EXISTS jobs (job TEXT)")
 
 @app.route('/api/jobs')
 def jobs():
-    with cursor() as cur:
-        if request.args.get("open") == "true":
-            cur.execute("SELECT job FROM jobs WHERE json_extract(job,'$.closed') = 0 OR json_extract(job,'$.closed') IS NULL")
-            #return dumps(db_mongo['jobs'].find({"$or": [{"closed": {"$exists": False}}, {"closed": False}]}))
-        else:
-            cur.execute("SELECT job FROM jobs WHERE json_extract(job,'$.closed') = 1")
-            #return dumps(db_mongo['jobs'].find({"closed": True}))
-        return [row['job'] for row in cur.fetchall()]
+    with connect() as db:
+        with cursor(db) as cur:
+            if request.args.get("open") == "true":
+                cur.execute("SELECT job FROM jobs WHERE json_extract(job,'$.closed') = 0 OR json_extract(job,'$.closed') IS NULL")
+            else:
+                cur.execute("SELECT job FROM jobs WHERE json_extract(job,'$.closed') = 1")
+            return [json.loads(row['job']) for row in cur.fetchall()]
     
 
-def get_job(number):
-    with cursor() as cur:
-        cur.execute("SELECT job FROM jobs WHERE json_extract(json(job),'$.jobNumber') = ?", [number])
-        job = cur.fetchone()
-        print("Loaded job:", number, job)
-        if job:
-            job = json.loads(job)
-        return job
+def get_job(db, number):
+    with cursor(db) as cur:
+        cur.execute("SELECT job FROM jobs WHERE json_extract(job,'$.jobNumber') = ?", [number])
+        row = cur.fetchone()
+        if row:
+            print("Loaded job:", number, row['job'])
+            return json.loads(row['job'])
+        else:
+            return None
 
 
 @app.route('/api/jobs/<int:jobNumber>', methods=['GET', 'POST'])
 def job(jobNumber):
-    if request.method == 'GET':
-        # Get a job by job number
-        job = get_job(jobNumber)
-        #job = db_mongo['jobs'].find_one({"jobNumber": jobNumber})
-        if job:
+    with connect() as db:
+        if request.method == 'GET':
+            # Get a job by job number
+            job = get_job(db, jobNumber)
+            if job:
+                return json.dumps(job)
+            else:
+                abort(404)
+        elif request.method == 'POST':
+            # Create or update a job
+            job = get_job(db, jobNumber)
+            if not job:
+                # Create
+                job = json.loads(request.data)
+                db.execute("INSERT INTO jobs (job) VALUES (?)", [json.dumps(job)])
+                print("Created job", jobNumber, job)
+            else:
+                # Update
+                new_data = json.loads(request.data)
+                for k,v in new_data.items():
+                    if k != "_id":
+                        job[k] = v
+                db.execute("UPDATE jobs SET job = ? WHERE json_extract(job,'$.jobNumber') = ?", [json.dumps(job), jobNumber])
+                print("Updated job", jobNumber, job)
+
             return json.dumps(job)
-        else:
-            abort(404)
-    elif request.method == 'POST':
-        # Create or update a job
-        job = get_job(jobNumber)
-        #job = db_mongo['jobs'].find_one({"jobNumber": jobNumber})
-        if not job:
-            # Create
-            job = json.loads(request.data)
-            db.execute("INSERT INTO jobs (job) VALUES (?)", [json.dumps(job)])
-            print("Created job", jobNumber, job)
-        else:
-            # Update
-            new_data = json.loads(request.data)
-            for k,v in new_data.iteritems():
-                if k != "_id":
-                    job[k] = v
-            db.execute("UPDATE jobs SET job = ? WHERE json_extract(json(job),'$.jobNumber') = ?", [json.dumps(job), jobNumber])
-            print("Updated job", jobNumber, job)
-
-        #db_mongo['jobs'].save(job_mongo)
-        return json.dumps(job)
             
-class AppServerSvc (win32serviceutil.ServiceFramework):
-    _svc_name_ = "SteamerServer"
-    _svc_display_name_ = "Steamer Server"
-    _svc_deps_ = ["MongoDB"]
-
-    def __init__(self,args):
-        win32serviceutil.ServiceFramework.__init__(self,args)
-        self.hWaitStop = win32event.CreateEvent(None,0,0,None)
-        socket.setdefaulttimeout(60)
-
-    def SvcStop(self):
-        self.ReportServiceStatus(win32service.SERVICE_STOP_PENDING)
-        win32event.SetEvent(self.hWaitStop)
-
-    def SvcDoRun(self):
-        servicemanager.LogMsg(servicemanager.EVENTLOG_INFORMATION_TYPE,
-                              servicemanager.PYS_SERVICE_STARTED,
-                              (self._svc_name_,''))
-        self.main()
-
-    def main(self):
-		#app.debug = True
-        app.run()
-
 if __name__ == '__main__':
-	win32serviceutil.HandleCommandLine(AppServerSvc)
+	app.debug = True
+	app.run()
