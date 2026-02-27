@@ -88,8 +88,9 @@ angular.module('myApp.controllers', ['myApp.services'])
           }
             ]
           });
-          j.$save();
-          $location.url("/jobs/" + j.jobNumber);
+          j.$save().then(function() {
+            $location.url("/jobs/" + j.jobNumber);
+          });
         })
       });
 
