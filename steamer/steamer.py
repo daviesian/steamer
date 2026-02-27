@@ -24,6 +24,10 @@ cursor = lambda db: closing(db.cursor())
 with connect() as db:
     db.execute("CREATE TABLE IF NOT EXISTS jobs (job TEXT)")
 
+@app.route('/')
+def root():
+    return app.send_static_file('app/index.html')
+
 @app.route('/api/jobs')
 def jobs():
     with connect() as db:

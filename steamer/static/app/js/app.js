@@ -12,12 +12,12 @@ angular.module('myApp', [
 config(['$routeProvider', function($routeProvider) {
 
   $routeProvider.when('/jobs', {
-    templateUrl: 'partials/jobs.html', 
+    templateUrl: 'static/app/partials/jobs.html', 
     controller: 'JobsController',
   });
 
 	$routeProvider.when("/jobs/:jobNumber", {
-		templateUrl: "partials/job.html",
+		templateUrl: "static/app/partials/job.html",
 		controller: "JobController",
 		resolve: {
 			thisJob: ["job", "$route", function(job, $route) {

@@ -89,7 +89,7 @@ angular.module('myApp.services', [])
 
 				caption: "Add Customer Name",
 
-				templateUrl: "partials/actions/enterCustomer.html",
+				templateUrl: "static/app/partials/actions/enterCustomer.html",
 
 			},
 
@@ -101,7 +101,7 @@ angular.module('myApp.services', [])
 
 				caption: "Add Boat Name",
 
-				templateUrl: "partials/actions/enterBoat.html",
+				templateUrl: "static/app/partials/actions/enterBoat.html",
 
 			},
 
@@ -113,7 +113,7 @@ angular.module('myApp.services', [])
 
 				caption: "Add Inspector Name",
 
-				templateUrl: "partials/actions/enterInspector.html",
+				templateUrl: "static/app/partials/actions/enterInspector.html",
 
 			},
 

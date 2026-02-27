@@ -18,7 +18,7 @@ angular.module('myApp.directives', []).
   			jobs: "=",
   		},
 
-  		templateUrl: "partials/jobsTable.html",
+  		templateUrl: "static/app/partials/jobsTable.html",
 
   		link: function(scope, element, attrs) {
 
