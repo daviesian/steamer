@@ -1,8 +1,6 @@
-#./nssm install Steamer 'C:\Program Files\Python311\python.exe' 'C:\Users\Chris\Dropbox\SBAS\New Administration\Steamer\steamer\steamer.py'
-
-# Then ./nssm edit Steamer
-# - Add double quotes around argument, to cope with spaces in path
-# - Change working directory to C:\Users\Chris\Dropbox\SBAS\New Administration\Steamer\steamer
+# uv venv
+# uv pip install -r requirements.txt
+# uv run python steamer.py
 
 from flask import Flask, request, abort
 import sqlite3
