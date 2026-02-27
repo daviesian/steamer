@@ -13,6 +13,7 @@ import json
 app = Flask(__name__)
 
 DB_PATH=os.getenv("STEAMER_DB") or r"steamer-db.db"
+PORT = os.getenv("STEAMER_PORT", "5000")
 
 def connect():
     d = sqlite3.connect(DB_PATH)
@@ -78,4 +79,4 @@ def job(jobNumber):
             
 if __name__ == '__main__':
 	app.debug = True
-	app.run()
+	app.run(port=PORT)
