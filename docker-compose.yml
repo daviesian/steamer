@@ -1,0 +1,21 @@
+services:
+  steamer:
+    image: ghcr.io/astral-sh/uv:debian-slim
+    container_name: steamer
+    command:
+      - uv
+      - run
+      - --with
+      - flask
+      - /steamer/steamer.py
+    volumes:
+      - .:/steamer # Source + DB
+      - uv:/root/.local/share/uv # So we don't have to download everything from scratch every time
+
+volumes:
+  uv:
+
+networks:
+  default:
+    external:
+      name: main
