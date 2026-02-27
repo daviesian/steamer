@@ -1,4 +1,8 @@
-#./nssm install Steamer 'C:\Program Files\Python311\python.exe' C:\steamer\steamer\steamer.py
+#./nssm install Steamer 'C:\Program Files\Python311\python.exe' 'C:\Users\Chris\Dropbox\SBAS\New Administration\Steamer\steamer\steamer.py'
+
+# Then ./nssm edit Steamer
+# - Add double quotes around argument, to cope with spaces in path
+# - Change working directory to C:\Users\Chris\Dropbox\SBAS\New Administration\Steamer\steamer
 
 from flask import Flask, request, abort
 import sqlite3
@@ -8,7 +12,7 @@ import json
 
 app = Flask(__name__)
 
-DB_PATH=os.getenv("STEAMER_DB") or r"C:\Users\Chris\Dropbox\SBAS\New Administration\steamer-db.db"
+DB_PATH=os.getenv("STEAMER_DB") or r"steamer-db.db"
 
 def connect():
     d = sqlite3.connect(DB_PATH)
