@@ -8,6 +8,8 @@ services:
       - --with
       - flask
       - /steamer/steamer.py
+    environment:
+      STEAMER_DB: /steamer/steamer-db.db
     volumes:
       - .:/steamer # Source + DB
       - uv:/root/.local/share/uv # So we don't have to download everything from scratch every time
