@@ -54,9 +54,6 @@ angular.module('myApp.services', [])
 				id: "jobSheetScanned",
 				title: "Job sheet scanned"
 			}, {
-				id: "inspectorPaid",
-				title: "Inspector paid"
-			}, {
 				id: "archiveUpdated",
 				title: "Archive updated"
 			}, {
@@ -64,8 +61,11 @@ angular.module('myApp.services', [])
 				title: "Invoice raised"
 			}, {
 				id: "invoiceSent",
-				title: "Invoice and report sent to customer",
-				relax: true
+				title: "Invoice and report sent to customer"
+			}, {
+				id: "inspectorPaid",
+				title: "Inspector paid",
+                                relax: true
 			}, {
 				id: "paymentReceived",
 				title: "Payment received"

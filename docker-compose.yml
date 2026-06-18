@@ -2,6 +2,7 @@ services:
   steamer:
     image: ghcr.io/astral-sh/uv:debian-slim
     container_name: steamer
+    restart: always
     command:
       - uv
       - run

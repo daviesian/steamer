@@ -122,7 +122,7 @@ angular.module('myApp.controllers', ['myApp.services'])
       if (firstNotDone == steps.length) {
         $scope.pendingSteps = [];
       } else {
-        $scope.pendingSteps = steps.slice(firstNotDone);
+        $scope.pendingSteps = steps.slice(firstNotDone).filter(s => happenedSteps.indexOf(s.id) === -1);
       }
 
 	  	$scope.actions = [];
